@@ -16,37 +16,37 @@ namespace HelloSerilog
                 .AddJsonFile($"appsettings.{currentEnv}.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
-        /*
+
             Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(configuration)
             .CreateLogger();
 
+        /*
+                    Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Information()
+                    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                    .MinimumLevel.Override("System", LogEventLevel.Warning)
+                    .WriteTo.Logger(l => l
+                        .Filter.ByIncludingOnly(Matching.FromSource("HelloSerilog"))
+                        .WriteTo.Async(cfg => cfg.RollingFile(
+                                pathFormat: "Logs/audit-{Date}.log",
+                                restrictedToMinimumLevel: LogEventLevel.Information,
+                                outputTemplate: "{Timestamp:yyyy-MM-dd.HH:mm:ss.fff}  ,{Message}{NewLine}"
+                        ))
+                    )
+                    .WriteTo.Logger(l => l
+                            .Filter.ByExcluding(Matching.FromSource("HelloSerilog"))
+                            .WriteTo.LiterateConsole(Serilog.Events.LogEventLevel.Warning)
+                            .WriteTo.Async(cfg => cfg.RollingFile(
+                                pathFormat: "Logs/log-{Date}.log",
+                                restrictedToMinimumLevel: LogEventLevel.Information,
+                                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {Message}{NewLine}{Exception}"
+                            ))
+                    )
+                    .Enrich.WithMachineName()
+                    .Enrich.FromLogContext()
+                    .CreateLogger();
         */
-            Log.Logger = new LoggerConfiguration()
-             .MinimumLevel.Information()
-             .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-             .MinimumLevel.Override("System", LogEventLevel.Warning)
-             .WriteTo.Logger(l => l
-                   .Filter.ByIncludingOnly(Matching.FromSource("HelloSerilog"))
-                   .WriteTo.Async(cfg => cfg.RollingFile(
-                        pathFormat: "Logs/audit-{Date}.log",
-                        restrictedToMinimumLevel: LogEventLevel.Information,
-                        outputTemplate: "{Timestamp:yyyy-MM-dd.HH:mm:ss.fff}  ,{Message}{NewLine}"
-                   ))
-             )
-            .WriteTo.Logger(l => l
-                    .Filter.ByExcluding(Matching.FromSource("HelloSerilog"))
-                    .WriteTo.LiterateConsole(Serilog.Events.LogEventLevel.Warning)
-                    .WriteTo.Async(cfg => cfg.RollingFile(
-                        pathFormat: "Logs/log-{Date}.log",
-                        restrictedToMinimumLevel: LogEventLevel.Information,
-                        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {Message}{NewLine}{Exception}"
-                    ))
-             )
-             .Enrich.WithMachineName()
-             .Enrich.FromLogContext()
-             .CreateLogger();
-
             try
             {
                 Log.Information("Starting Logging");
