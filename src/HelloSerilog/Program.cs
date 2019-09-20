@@ -53,6 +53,10 @@ namespace HelloSerilog
 
                 var obj = new TestObj();
                 obj.LogSoming();
+
+                var obj2 = new Libs.InnerTestObj();
+                obj2.LogSoming();
+
                 Console.WriteLine("Hello Serilog");
                 Console.ReadKey();
                 Log.Warning("Test Warning");
